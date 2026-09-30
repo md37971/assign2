@@ -11,14 +11,14 @@ const User = {
 
   // Read All
   async findAll() {
-    const sql = `SELECT userID, username, lastname, firstname, email, urole, lastModified FROM users`;
+    const sql = `SELECT userID, username, lastname, firstname, passwd ,email, urole, lastModified FROM users`;
     const [rows] = await db.execute(sql);
     return rows;
   },
 
   // Read One by ID
   async findById(id) {
-    const sql = `SELECT userID, username, lastname, firstname, email, urole, lastModified FROM users WHERE userID = ?`;
+    const sql = `SELECT userID, username, lastname, firstname, passwd ,email, urole, lastModified FROM users WHERE userID = ?`;
     const [rows] = await db.execute(sql, [id]);
     return rows[0] || null;
   },

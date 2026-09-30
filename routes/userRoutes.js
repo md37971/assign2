@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/userModel");
+const { authenticateToken } = require("./auth");
 
 // Endpoint: GET /api/users - Find all users (READ)
-router.get("/", async function (req, res) {
+router.get("/", authenticateToken ,async function (req, res) {
   try {
     const users = await User.findAll();
     res.status(200).json({ success: true, data: users });
@@ -13,7 +14,7 @@ router.get("/", async function (req, res) {
 });
 
 // Endpoint: GET /api/users/:id - Find single user (READ)
-router.get("/:id", async function (req, res) {
+router.get("/:id",authenticateToken ,async function (req, res) {
   try {
     const user = await User.findById(req.params.id);
     if (!user) {
@@ -26,7 +27,7 @@ router.get("/:id", async function (req, res) {
 });
 
 // Endpoint: POST /api/users - Add new user (CREATE)
-router.post("/", async function (req, res) {
+router.post("/", authenticateToken ,async function (req, res) {
   try {
     const { username } = req.body;
     if (!username) {
@@ -43,7 +44,7 @@ router.post("/", async function (req, res) {
 });
 
 // Endpoint: PUT /api/users/:id - Update user (UPDATE)
-router.put("/:id", async (req, res) => {
+router.put("/:id", authenticateToken ,async (req, res) => {
   try {
     const { username } = req.body;
     if (!username) {
@@ -61,7 +62,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // DELETE /api/users/:id - Delete user
-router.delete("/:id", async (req, res) => {
+router.delete("/:id",authenticateToken ,async (req, res) => {
   try {
     const deleted = await User.delete(req.params.id);
     if (!deleted) {

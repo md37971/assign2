@@ -7,8 +7,10 @@ const PORT = 3000;
 // Middleware for parsing JSON requests
 app.use(express.json());
 
+const {router: authRouter} = require("./routes/auth.js");
 // Routes
 app.use("/api/users", userRoutes);
+app.use("/api", authRouter);
 
 // 404 Handler
 app.use((req, res) => {
